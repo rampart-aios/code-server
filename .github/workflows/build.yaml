@@ -206,6 +206,7 @@ jobs:
     timeout-minutes: 60
     env:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      DISABLE_V8_COMPILE_CACHE: 1
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -228,11 +229,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: .node-version
-
-      # node-gyp is missing in (at least) npm 9.8.1.
-      # TODO: Remove once we update to npm>=10?
-      - name: Install node-gyp
-        run: npm install -g node-gyp
 
       - name: Fetch dependencies from cache
         id: cache-node-modules
