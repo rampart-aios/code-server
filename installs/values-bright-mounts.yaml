@@ -5,10 +5,10 @@ extraVolumeMounts:
   #   readOnly: true
   #   existingClaim: volume-claim
   #   hostPath: ""
-  - name: srv-nfs
-    mountPath: /srv/nfs
-    readOnly: false
-    hostPath: "/srv/nfs"
+  # - name: srv-nfs
+  #   mountPath: /srv/nfs
+  #   readOnly: false
+  #   hostPath: "/srv/nfs"
   - name: model
     mountPath: /model
     readOnly: false
