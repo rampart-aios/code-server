@@ -94,6 +94,8 @@ spec:
 {{ toYaml .Values.extraArgs | indent 10 }}
         {{- end }}
           volumeMounts:
+          - mountPath: /dev/shm
+            name: cache-volume
           - name: data
             mountPath: /home/coder
           {{- range .Values.extraConfigmapMounts }}
@@ -147,6 +149,10 @@ spec:
     {{- end }}
       serviceAccountName: {{ template "code-server.serviceAccountName" . }}
       volumes:
+      - emptyDir:
+          medium: Memory
+          sizeLimit: 10Gi
+        name: cache-volume
       - name: data
       {{- if .Values.persistence.enabled }}
         {{- if not .Values.persistence.hostPath }}

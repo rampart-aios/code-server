@@ -1,6 +1,6 @@
 image:
   repository: ghcr.io/rampart-aios/conda-code-server
-  tag: 0.0.1-eec8879
+  tag: 1.0.0-4dcc99e
 service:
   type: NodePort
 resources:
@@ -30,7 +30,7 @@ extraContainers: |
       value: "overlay2"
 extraInitContainers: |
   - name: path-export
-    image: ghcr.io/rampart-aios/conda-code-server:0.0.1-3a2bfc8
+    image: ghcr.io/rampart-aios/conda-code-server:1.0.0-4dcc99e
     imagePullPolicy: IfNotPresent
     command:
       - sh
