@@ -53,6 +53,7 @@ export interface UserProvidedCodeArgs {
   "disable-getting-started-override"?: boolean
   "disable-proxy"?: boolean
   "session-socket"?: string
+  "abs-proxy-base-path"?: string
 }
 
 /**
@@ -278,6 +279,10 @@ export const options: Options<Required<UserProvidedArgs>> = {
     type: "string",
     short: "w",
     description: "Text to show on login page",
+  },
+  "abs-proxy-base-path": {
+    type: "string",
+    description: "The base path to prefix to all absproxy requests",
   },
 }
 
@@ -836,11 +841,6 @@ export interface CodeArgs extends UserProvidedCodeArgs {
   compatibility?: string
   log?: string[]
 }
-
-/**
- * Types for ../../lib/vscode/src/vs/server/node/server.main.ts:65.
- */
-export type SpawnCodeCli = (args: CodeArgs) => Promise<void>
 
 /**
  * Convert our arguments to equivalent VS Code server arguments.
