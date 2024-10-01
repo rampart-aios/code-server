@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: coderserver-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: "selfsigned-cluster-issuer"
+spec:
+  ingressClassName: public
+  tls:
+  - hosts:
+    - lc-hpc-01
+    secretName: lc-hpc-01-tls  # The secret where the TLS certificate will be stored
+  rules:
+  - host: lc-hpc-01
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: cs-demo-code-server
+            port:
+              number: 8080

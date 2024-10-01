@@ -1,3 +1,7 @@
+image:
+  repository: ghcr.io/rampart-aios/conda-code-server/dev-code-server
+  tag: latest
+
 service:
   type: NodePort
 
@@ -28,7 +32,7 @@ extraContainers: |
 
 extraInitContainers: |
   - name: path-export
-    image: ghcr.io/rampart-aios/conda-code-server:0.1.0-3035168
+    image: ghcr.io/rampart-aios/conda-code-server/cuda-init:{{ .Values.image.tag }}
     imagePullPolicy: IfNotPresent
     command:
       - sh
@@ -36,10 +40,13 @@ extraInitContainers: |
       - |
         cd && pwd
         if [ ! -d "./miniconda3" ]; then
+          echo "initializing conda and docker"
           bash /downloads/Miniconda3-latest-Linux-x86_64.sh -b
           tar zxvf /downloads/docker-19.03.15.tgz --strip 1 -C ./miniconda3/bin docker/docker
+          cp /downloads/.bashrc /home/coder
+          ./miniconda3/bin/conda init bash
         fi
-        ./miniconda3/bin/conda init bash
+        
     volumeMounts:
       - name: data
         mountPath: /home/coder
