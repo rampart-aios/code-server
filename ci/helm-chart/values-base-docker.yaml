@@ -45,6 +45,9 @@ extraInitContainers: |
           tar zxvf /downloads/docker-19.03.15.tgz --strip 1 -C ./miniconda3/bin docker/docker
           cp /downloads/.bashrc /home/coder
           ./miniconda3/bin/conda init bash
+          cp /downloads/kubectl /home/coder/miniconda3/bin
+          chmod +x /home/coder/miniconda3/bin/kubectl
+          bash /downloads/ollama.sh
         fi
         
     volumeMounts:
