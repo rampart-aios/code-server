@@ -8,7 +8,7 @@ helm upgrade --install cs-ridwan ../ci/helm-chart -f values-base-docker.yaml -f 
 helm upgrade --install cs-hanshuo ../ci/helm-chart -f values-base-docker.yaml -f values-2gpu.yaml  -f values-bright-mounts.yaml -n cs-hanshuo --create-namespace
 helm upgrade --install cs-chip ../ci/helm-chart -f values-base-docker.yaml -f values-1gpu.yaml  -f values-bright-mounts.yaml -n cs-chip --create-namespace
 helm upgrade --install cs-akhmed ../ci/helm-chart -f values-base-docker.yaml -f values-2gpu.yaml   -f values-bright-mounts.yaml -n cs-akhmed --create-namespace
-helm upgrade --install cs-xuechi ../ci/helm-chart -f values-base-docker.yaml -f values-2gpu.yaml  -f values-bright-mounts.yaml -n cs-xuechi --create-namespace
+helm upgrade --install cs-demo ../ci/helm-chart -f values-base-docker.yaml -f values-1gpu.yaml  -f values-bright-mounts.yaml -n cs-demo --create-namespace
 
 ## AIOS-ws
 helm upgrade --install cs-elnura ../ci/helm-chart -f values-base-docker.yaml -f values-aios-ws-mounts.yaml -f values-2gpu.yaml -n cs-elnura --create-namespace

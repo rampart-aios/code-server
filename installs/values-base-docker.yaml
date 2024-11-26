@@ -1,6 +1,6 @@
 image:
   repository: ghcr.io/rampart-aios/conda-code-server/dev-code-server
-  tag: latest
+  tag: 1.1.2
 
 service:
   type: NodePort
@@ -14,7 +14,7 @@ extraVars:
 # If docker-dind is used, DOCKER_HOST env is mandatory to set in "extraVars"
 extraContainers: | 
   - name: docker-dind
-    image: docker:19.03-dind
+    image: docker:27.3.1-dind
     imagePullPolicy: IfNotPresent
     resources:
       requests:
@@ -40,15 +40,19 @@ extraInitContainers: |
       - |
         cd && pwd
         if [ ! -d "./miniconda3" ]; then
-          echo "initializing conda and docker"
+          echo "install Miniconda3 and docker"
           bash /downloads/Miniconda3-latest-Linux-x86_64.sh -b
-          tar zxvf /downloads/docker-19.03.15.tgz --strip 1 -C ./miniconda3/bin docker/docker
           cp /downloads/.bashrc /home/coder
+          echo "conda init"
           ./miniconda3/bin/conda init bash
           echo "initializing home"
           mkdir /home/coder/bin
+          echo "install docker"
+          tar zxvf /downloads/docker.tgz --strip 1 -C ./bin docker/docker
+          echo "install kubectl"
           cp /downloads/kubectl /home/coder/bin
           chmod +x /home/coder/bin/kubectl
+          echo "install ollama"
           tar -C /home/coder -xzf /downloads/ollama-linux-amd64.tgz
         fi
         
