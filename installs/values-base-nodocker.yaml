@@ -1,18 +1,34 @@
+image:
+  repository: ghcr.io/rampart-aios/conda-code-server/dev-code-server
+  tag: 1.1.3-09a4f98
+
 service:
   type: NodePort
 
 extraInitContainers: |
   - name: path-export
-    image: ghcr.io/rampart-aios/conda-code-server:0.1.0-3035168
+    image: ghcr.io/rampart-aios/conda-code-server/cuda-init:{{ .Values.image.tag }}
     imagePullPolicy: IfNotPresent
     command:
       - sh
       - -c
       - |
         cd && pwd
-        bash /downloads/Miniconda3-latest-Linux-x86_64.sh -b
-        ./miniconda3/bin/conda init bash
-
+        if [ ! -d "./miniconda3" ]; then
+          echo "install Miniconda3 and docker"
+          bash /downloads/Miniconda3-latest-Linux-x86_64.sh -b
+          cp /downloads/.bashrc /home/coder
+          echo "conda init"
+          ./miniconda3/bin/conda init bash
+          echo "initializing home"
+          mkdir /home/coder/bin
+          echo "install kubectl"
+          cp /downloads/kubectl /home/coder/bin
+          chmod +x /home/coder/bin/kubectl
+          echo "install ollama"
+          tar -C /home/coder -xzf /downloads/ollama-linux-amd64.tgz
+        fi
+        
     volumeMounts:
       - name: data
         mountPath: /home/coder
