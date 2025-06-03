@@ -22,6 +22,5 @@ helm upgrade --install cs-gpu-chip ../ci/helm-chart -f values-base-docker.yaml -
 ## ciai-infra
 helm upgrade --install cs-gpu-chip ../ci/helm-chart -f values-base-docker.yaml -n cs-gpu-chip --create-namespace
 
-## test
-helm upgrade --install cs-chip ../ci/helm-chart -f values-base-docker.yaml -n cs-chip --create-namespace
-24khos5sdXJg7DICKNayE3aT
+## RO
+helm upgrade --install cs-maaz ../ci/helm-chart -f values-base-docker.yaml -f values-mounts.yaml -f values-4gpu.yaml -n cs-maaz --create-namespace
