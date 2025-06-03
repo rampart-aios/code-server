@@ -1,9 +1,9 @@
 import { Request, Response } from "express"
 import * as path from "path"
-import * as pluginapi from "../../../typings/pluginapi"
 import { HttpCode, HttpError } from "../../common/http"
 import { ensureProxyEnabled, authenticated, ensureAuthenticated, ensureOrigin, redirect, self } from "../http"
 import { proxy as _proxy } from "../proxy"
+import type { WebsocketRequest } from "../wsRouter"
 
 const getProxyTarget = (
   req: Request,
@@ -13,7 +13,11 @@ const getProxyTarget = (
 ): string => {
   // If there is a base path, strip it out.
   const base = (req as any).base || ""
-  return `http://0.0.0.0:${req.params.port}${opts?.proxyBasePath || ""}/${req.originalUrl.slice(base.length)}`
+  const port = parseInt(req.params.port, 10)
+  if (isNaN(port)) {
+    throw new HttpError("Invalid port", HttpCode.BadRequest)
+  }
+  return `http://0.0.0.0:${port}${opts?.proxyBasePath || ""}/${req.originalUrl.slice(base.length)}`
 }
 
 export async function proxy(
@@ -26,7 +30,9 @@ export async function proxy(
 ): Promise<void> {
   ensureProxyEnabled(req)
 
-  if (!(await authenticated(req))) {
+  if (req.method === "OPTIONS" && req.args["skip-auth-preflight"]) {
+    // Allow preflight requests with `skip-auth-preflight` flag
+  } else if (!(await authenticated(req))) {
     // If visiting the root (/:port only) redirect to the login page.
     if (!req.params.path || req.params.path === "/") {
       const to = self(req)
@@ -49,7 +55,7 @@ export async function proxy(
 }
 
 export async function wsProxy(
-  req: pluginapi.WebsocketRequest,
+  req: WebsocketRequest,
   opts?: {
     passthroughPath?: boolean
     proxyBasePath?: string
