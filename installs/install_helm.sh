@@ -24,3 +24,6 @@ helm upgrade --install cs-gpu-chip ../ci/helm-chart -f values-base-docker.yaml -
 
 ## RO
 helm upgrade --install cs-maaz ../ci/helm-chart -f values-base-docker.yaml -f values-mounts.yaml -f values-4gpu.yaml -n cs-maaz --create-namespace
+
+##RODEV
+helm upgrade --install cs-a4g ../ci/helm-chart -f values-base-docker.yaml -f values-aios-ws-mounts.yaml -f values-2gpu.yaml -n cs-a4g --create-namespace
