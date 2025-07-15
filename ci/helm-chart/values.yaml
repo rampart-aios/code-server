@@ -31,7 +31,7 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
-podAnnotations: {}
+podAnnotations: {secret.reloader.stakater.com/reload: "aios"}
 
 podSecurityContext: {}
   # fsGroup: 2000

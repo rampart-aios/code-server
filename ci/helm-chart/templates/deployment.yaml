@@ -41,11 +41,11 @@ spec:
       - name: init-chmod-data
         image: busybox:latest
         imagePullPolicy: IfNotPresent
-        command:
-          - sh
-          - -c
-          - |
-            chown -R {{ .Values.securityContext.runAsUser }}:{{ .Values.securityContext.fsGroup }} /home/coder
+#        command:
+#          - sh
+#          - -c
+#          - |
+#            chown -R {{ .Values.securityContext.runAsUser }}:{{ .Values.securityContext.fsGroup }} /home/coder
         securityContext:
           runAsUser: {{ .Values.volumePermissions.securityContext.runAsUser }}
         volumeMounts:
