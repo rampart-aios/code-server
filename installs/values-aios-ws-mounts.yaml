@@ -1,6 +1,0 @@
-## Additional code-server volume mounts
-extraVolumeMounts:
-  - name: aios-stor
-    mountPath: /aios-stor
-    readOnly: false
-    hostPath: "/aios-stor"
