@@ -1,6 +1,6 @@
 image:
   repository: ghcr.io/rampart-aios/conda-code-server/dev-code-server
-  tag: 1.1.3-09a4f98
+  tag: 4.102.0
 
 service:
   type: NodePort
@@ -10,6 +10,12 @@ extraVars:
 #    value: true
   - name: DOCKER_HOST
     value: "tcp://localhost:2375"
+##
+## Init containers parameters:
+## volumePermissions: Change the owner of the persist volume mountpoint to RunAsUser:fsGroup
+##
+volumePermissions:
+  enabled: false
 
 # If docker-dind is used, DOCKER_HOST env is mandatory to set in "extraVars"
 extraContainers: | 

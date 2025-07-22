@@ -1,2 +1,0 @@
-nodeSelector:
-  nvidia.com/gpu.product: NVIDIA-RTX-A4000

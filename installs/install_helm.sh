@@ -17,7 +17,8 @@ helm upgrade --install cs-demo ../ci/helm-chart -f values-base-docker.yaml -f va
 helm upgrade --install cs-omar ../ci/helm-chart -f values-base-docker.yaml -f values-aios-ws-mounts.yaml -f values-2gpu.yaml -n cs-omar --create-namespace
 
 ## ciai-ws
-helm upgrade --install cs-gpu-chip ../ci/helm-chart -f values-base-docker.yaml -f values-1gpu.yaml -n cs-gpu-chip --create-namespace
+helm upgrade --install cs-a1g ../ci/helm-chart -f values-base-docker.yaml -f values-aios-stor-mounts.yaml  -f values-1gpu.yaml -f values-ciai-ws.yaml -n cs-a1g --create-namespace
+
 
 ## ciai-infra
 helm upgrade --install cs-gpu-chip ../ci/helm-chart -f values-base-docker.yaml -n cs-gpu-chip --create-namespace
