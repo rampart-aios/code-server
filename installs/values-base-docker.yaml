@@ -1,6 +1,6 @@
 image:
   repository: ghcr.io/rampart-aios/conda-code-server/dev-code-server
-  tag: 4.102.0
+  tag: 4.102.1
 
 service:
   type: NodePort
