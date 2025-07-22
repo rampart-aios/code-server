@@ -12,6 +12,7 @@ node_modules
 /lib/coder-cloud-agent
 .home
 coverage
+.vscode
 **/.DS_Store
 
 # Code packages itself here.
