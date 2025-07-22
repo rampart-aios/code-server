@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cs-maaz-code-server
+  namespace: proxy
+spec:
+  type: ExternalName
+  externalName: cs-maaz-code-server.cs-maaz.svc.cluster.local
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cs-maaz-ingress
+  namespace: proxy
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: public
+  tls:
+  - hosts:
+    - '*.ro.rampart-aios.org'
+    secretName: rampart-tls
+  rules:
+  - host: cs-maaz.ro.rampart-aios.org
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: cs-maaz-code-server
+            port:
+              number: 8080

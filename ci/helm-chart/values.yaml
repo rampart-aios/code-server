@@ -20,7 +20,7 @@ fullnameOverride: ""
 hostnameOverride: ""
 
 # The existing secret to use for code-server authentication in the frontend. the password is stored in the secret under the key `password`
-# existingSecret: ""
+existingSecret: "aios"
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -31,7 +31,7 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
-podAnnotations: {}
+podAnnotations: {secret.reloader.stakater.com/reload: "aios"}
 
 podSecurityContext: {}
   # fsGroup: 2000
@@ -126,7 +126,8 @@ persistence:
   # storageClass: "-"
   accessMode: ReadWriteOnce
   size: 10Gi
-  annotations: {}
+  annotations:
+    "helm.sh/resource-policy": keep
   # existingClaim: ""
   # hostPath: /data
 
